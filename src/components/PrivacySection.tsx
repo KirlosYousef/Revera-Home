@@ -1,12 +1,7 @@
 import { Shield, Lock, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-type Page = 'home' | 'privacy' | 'terms';
-
-interface PrivacySectionProps {
-  onNavigate: (page: Page) => void;
-}
-
-export function PrivacySection({ onNavigate }: PrivacySectionProps) {
+export function PrivacySection() {
   return (
     <section className="bg-black text-white py-20 md:py-32">
       <div className="max-w-5xl mx-auto px-6">
@@ -41,18 +36,18 @@ export function PrivacySection({ onNavigate }: PrivacySectionProps) {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button 
-            onClick={() => onNavigate('privacy')}
-            className="border border-white text-white px-8 py-4 rounded-2xl hover:bg-white hover:text-black transition-colors"
+          <Link 
+            to="/privacy"
+            className="border border-white text-white px-8 py-4 rounded-2xl hover:bg-white hover:text-black transition-colors text-center"
           >
             Read Privacy Policy
-          </button>
-          <button 
-            onClick={() => onNavigate('terms')}
-            className="border border-white text-white px-8 py-4 rounded-2xl hover:bg-white hover:text-black transition-colors"
+          </Link>
+          <Link 
+            to="/terms"
+            className="border border-white text-white px-8 py-4 rounded-2xl hover:bg-white hover:text-black transition-colors text-center"
           >
             View Terms
-          </button>
+          </Link>
         </div>
       </div>
     </section>

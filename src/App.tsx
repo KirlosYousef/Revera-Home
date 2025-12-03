@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
@@ -9,32 +9,32 @@ import { PrivacySection } from './components/PrivacySection';
 import { PricingTeaser } from './components/PricingTeaser';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
+import { Contact } from './pages/Contact';
 
-type Page = 'home' | 'privacy' | 'terms';
-
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
-
-  if (currentPage === 'privacy') {
-    return <PrivacyPolicy onNavigate={setCurrentPage} />;
-  }
-
-  if (currentPage === 'terms') {
-    return <Terms onNavigate={setCurrentPage} />;
-  }
-
+function HomePage() {
   return (
     <div className="min-h-screen bg-white text-black">
-      <Header onNavigate={setCurrentPage} />
+      <Header />
       <main>
         <Hero />
         <Features />
         <HowItWorks />
         <WhoItsFor />
-        <PrivacySection onNavigate={setCurrentPage} />
+        <PrivacySection />
         <PricingTeaser />
       </main>
-      <Footer onNavigate={setCurrentPage} />
+      <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
   );
 }

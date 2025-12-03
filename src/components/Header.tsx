@@ -1,22 +1,19 @@
+import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-type Page = 'home' | 'privacy' | 'terms';
-
-interface HeaderProps {
-  onNavigate: (page: Page) => void;
-}
-
-export function Header({ onNavigate }: HeaderProps) {
+export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToSection = (id: string) => {
-    // Check if we're on the home page by looking for the features section
-    const isOnHomePage = document.getElementById('features') !== null;
+    // Check if we're on the home page
+    const isOnHomePage = location.pathname === '/';
     
     if (!isOnHomePage) {
       // Navigate to home first
-      onNavigate('home');
+      navigate('/');
       // Wait for the page to render, then scroll with retry logic
       const attemptScroll = (attempts = 0) => {
         const element = document.getElementById(id);
@@ -43,12 +40,12 @@ export function Header({ onNavigate }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <button 
-            onClick={() => onNavigate('home')}
+          <Link 
+            to="/"
             className="text-xl"
           >
             Revera AI
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -61,15 +58,15 @@ export function Header({ onNavigate }: HeaderProps) {
             <button onClick={() => scrollToSection('pricing')} className="hover:opacity-50 transition-opacity">
               Pricing
             </button>
-            <button onClick={() => scrollToSection('support')} className="hover:opacity-50 transition-opacity">
+            <Link to="/contact" className="hover:opacity-50 transition-opacity">
               Support
-            </button>
-            <button onClick={() => onNavigate('privacy')} className="hover:opacity-50 transition-opacity">
+            </Link>
+            <Link to="/privacy" className="hover:opacity-50 transition-opacity">
               Privacy
-            </button>
-            <button onClick={() => onNavigate('terms')} className="hover:opacity-50 transition-opacity">
+            </Link>
+            <Link to="/terms" className="hover:opacity-50 transition-opacity">
               Terms
-            </button>
+            </Link>
             <a 
               href="https://apps.apple.com/us/app/id6748306699"
               target="_blank"
@@ -101,15 +98,15 @@ export function Header({ onNavigate }: HeaderProps) {
             <button onClick={() => scrollToSection('pricing')} className="text-left hover:opacity-50 transition-opacity">
               Pricing
             </button>
-            <button onClick={() => scrollToSection('support')} className="text-left hover:opacity-50 transition-opacity">
+            <Link to="/contact" className="text-left hover:opacity-50 transition-opacity">
               Support
-            </button>
-            <button onClick={() => onNavigate('privacy')} className="text-left hover:opacity-50 transition-opacity">
+            </Link>
+            <Link to="/privacy" className="text-left hover:opacity-50 transition-opacity">
               Privacy
-            </button>
-            <button onClick={() => onNavigate('terms')} className="text-left hover:opacity-50 transition-opacity">
+            </Link>
+            <Link to="/terms" className="text-left hover:opacity-50 transition-opacity">
               Terms
-            </button>
+            </Link>
             <a 
               href="https://apps.apple.com/us/app/id6748306699"
               target="_blank"

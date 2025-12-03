@@ -1,10 +1,6 @@
-type Page = 'home' | 'privacy' | 'terms';
+import { Link } from 'react-router-dom';
 
-interface FooterProps {
-  onNavigate: (page: Page) => void;
-}
-
-export function Footer({ onNavigate }: FooterProps) {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,24 +13,24 @@ export function Footer({ onNavigate }: FooterProps) {
           </div>
           
           <div className="flex flex-wrap gap-6">
-            <button 
-              onClick={() => onNavigate('privacy')}
+            <Link 
+              to="/privacy"
               className="hover:opacity-50 transition-opacity"
             >
               Privacy Policy
-            </button>
-            <button 
-              onClick={() => onNavigate('terms')}
+            </Link>
+            <Link 
+              to="/terms"
               className="hover:opacity-50 transition-opacity"
             >
               Terms & Conditions
-            </button>
-            <a 
-              href="mailto:hello@kirlosyousef.com"
+            </Link>
+            <Link 
+              to="/contact"
               className="hover:opacity-50 transition-opacity"
             >
               Contact support
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,21 +1,18 @@
 import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-type Page = 'home' | 'privacy' | 'terms';
+export function Terms() {
+  const navigate = useNavigate();
 
-interface TermsProps {
-  onNavigate: (page: Page) => void;
-}
-
-export function Terms({ onNavigate }: TermsProps) {
   return (
     <div className="min-h-screen bg-white text-black">
-      <Header onNavigate={onNavigate} />
+      <Header />
       
       <main className="max-w-3xl mx-auto px-6 py-16">
         <button 
-          onClick={() => onNavigate('home')}
+          onClick={() => navigate('/')}
           className="flex items-center gap-2 mb-8 hover:opacity-50 transition-opacity"
         >
           <ArrowLeft size={20} />
@@ -217,7 +214,7 @@ export function Terms({ onNavigate }: TermsProps) {
         </div>
       </main>
 
-      <Footer onNavigate={onNavigate} />
+      <Footer />
     </div>
   );
 }

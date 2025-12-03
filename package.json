@@ -55,7 +55,6 @@
       "scripts": {
             "dev": "vite",
             "build": "vite build",
-            "postbuild": "node scripts/postbuild.js && cp 404.html build/404.html 2>/dev/null || true",
             "preview": "vite preview"
       }
 }

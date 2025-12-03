@@ -43,12 +43,6 @@ jobs:
             cp CNAME build/CNAME
           fi
       
-      - name: Copy 404.html file
-        run: |
-          if [ -f 404.html ]; then
-            cp 404.html build/404.html
-          fi
-      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       

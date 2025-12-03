@@ -4,18 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Revera AI - Transcribe & Act Hub</title>
-    <script>
-      // Redirect to index.html while preserving the path
-      // This allows React Router to handle the route
+  </head>
+  <body>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // Redirect to index.html with the path preserved
       var path = window.location.pathname;
       var search = window.location.search;
       var hash = window.location.hash;
-      window.location.replace('/index.html' + path + search + hash);
+      
+      // Convert path segments to query parameter format
+      var pathSegments = path.split('/').filter(function(segment) {
+        return segment.length > 0;
+      });
+      var query = pathSegments.length > 0 ? '?/' + pathSegments.join('/') : '';
+      
+      // Preserve existing query parameters
+      if (search && search !== '?') {
+        query += (query ? '&' : '?') + search.slice(1).replace(/&/g, '~and~');
+      }
+      
+      // Redirect to index.html with path in query string
+      window.location.replace(window.location.origin + '/' + query + hash);
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <p>Redirecting...</p>
   </body>
 </html>
-

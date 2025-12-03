@@ -2,37 +2,10 @@
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
-  import { readFileSync, writeFileSync } from 'fs';
-
-  // Plugin to generate 404.html for GitHub Pages SPA routing
-  function generate404Plugin() {
-    return {
-      name: 'generate-404',
-      closeBundle() {
-        const indexPath = path.resolve(__dirname, 'build/index.html');
-        const html404PathBuild = path.resolve(__dirname, 'build/404.html');
-        const html404PathRoot = path.resolve(__dirname, '404.html');
-        
-        try {
-          // Simply copy index.html to 404.html
-          // When GitHub Pages serves 404.html, the URL path is already correct
-          // (e.g., /terms), so React Router will handle it properly
-          const html = readFileSync(indexPath, 'utf-8');
-          
-          // Write to both build folder and root (for GitHub Pages)
-          writeFileSync(html404PathBuild, html);
-          writeFileSync(html404PathRoot, html);
-          console.log('✓ Generated 404.html for GitHub Pages SPA routing');
-        } catch (error) {
-          console.error('Error generating 404.html:', error);
-        }
-      },
-    };
-  }
 
   export default defineConfig({
     base: '/',
-    plugins: [react(), generate404Plugin()],
+    plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {

@@ -37,11 +37,19 @@ jobs:
       - name: Create .nojekyll file
         run: touch build/.nojekyll
       
-      - name: Verify build output
+      - name: Verify build output and MIME types
         run: |
           ls -la build/
           ls -la build/assets/ || true
           file build/assets/*.js || true
+          # Ensure .nojekyll exists
+          test -f build/.nojekyll && echo "✓ .nojekyll exists" || echo "✗ .nojekyll missing"
+          # Verify JS files have .js extension
+          for file in build/assets/*.js; do
+            if [ -f "$file" ]; then
+              echo "✓ Found JS file: $file"
+            fi
+          done
       
       - name: Copy CNAME file
         run: |

@@ -37,6 +37,12 @@ jobs:
       - name: Create .nojekyll file
         run: touch build/.nojekyll
       
+      - name: Verify build output
+        run: |
+          ls -la build/
+          ls -la build/assets/ || true
+          file build/assets/*.js || true
+      
       - name: Copy CNAME file
         run: |
           if [ -f CNAME ]; then

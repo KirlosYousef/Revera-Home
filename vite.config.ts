@@ -16,12 +16,18 @@
           const indexContent = readFileSync(indexPath, 'utf-8');
           
           // Create 404.html with pathname preservation script
+          // This script runs before React loads to preserve the URL pathname
+          // so React Router can handle client-side routing correctly
           const redirectScript = `    <script>
-      // Preserve pathname before React Router initializes
+      // Preserve pathname for React Router when GitHub Pages serves 404.html
       (function() {
-        var pathname = window.location.pathname;
-        if (pathname !== '/' && pathname !== '/index.html') {
-          history.replaceState(null, '', pathname);
+        try {
+          var pathname = window.location.pathname;
+          if (pathname && pathname !== '/' && pathname !== '/index.html' && typeof history !== 'undefined' && history.replaceState) {
+            history.replaceState(null, '', pathname);
+          }
+        } catch(e) {
+          // Silently ignore errors to prevent breaking the page
         }
       })();
     </script>
@@ -36,6 +42,11 @@
           // Write 404.html
           const outputPath = path.resolve(__dirname, 'build/404.html');
           writeFileSync(outputPath, modifiedContent, 'utf-8');
+          
+          // Create .nojekyll file to prevent Jekyll from processing files
+          // This ensures GitHub Pages serves files with correct MIME types
+          const nojekyllPath = path.resolve(__dirname, 'build/.nojekyll');
+          writeFileSync(nojekyllPath, '', 'utf-8');
         },
       },
     ],

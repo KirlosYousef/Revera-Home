@@ -2,10 +2,43 @@
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
+  import { readFileSync, writeFileSync } from 'fs';
 
   export default defineConfig({
     base: '/',
-    plugins: [react()],
+    plugins: [
+      react(),
+      {
+        name: 'generate-404',
+        closeBundle() {
+          // Read the generated index.html
+          const indexPath = path.resolve(__dirname, 'build/index.html');
+          const indexContent = readFileSync(indexPath, 'utf-8');
+          
+          // Create 404.html with pathname preservation script
+          const redirectScript = `    <script>
+      // Preserve pathname before React Router initializes
+      (function() {
+        var pathname = window.location.pathname;
+        if (pathname !== '/' && pathname !== '/index.html') {
+          history.replaceState(null, '', pathname);
+        }
+      })();
+    </script>
+`;
+          
+          // Insert the script before the closing </head> tag
+          const modifiedContent = indexContent.replace(
+            '    </head>',
+            redirectScript + '    </head>'
+          );
+          
+          // Write 404.html
+          const outputPath = path.resolve(__dirname, 'build/404.html');
+          writeFileSync(outputPath, modifiedContent, 'utf-8');
+        },
+      },
+    ],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {

@@ -7,10 +7,18 @@
       <title>Revera AI - Transcribe & Act Hub</title>
       <script type="module" crossorigin src="/assets/index-D955JWxp.js"></script>
       <link rel="stylesheet" crossorigin href="/assets/index-C27A8t38.css">
+    <script>
+      // Preserve pathname before React Router initializes
+      (function() {
+        var pathname = window.location.pathname;
+        if (pathname !== '/' && pathname !== '/index.html') {
+          history.replaceState(null, '', pathname);
+        }
+      })();
+    </script>
     </head>
 
     <body>
       <div id="root"></div>
     </body>
   </html>
-  
